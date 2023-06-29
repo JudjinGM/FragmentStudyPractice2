@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -34,10 +35,20 @@ class NestedFragmentB : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.button.setOnClickListener {
-            parentFragmentManager.commit {
-                replace(R.id.fragment_child_container, NestedFragmentA.newInstance(text))
-            }
+            parentFragmentManager
+                .beginTransaction()
+                .replace(
+                    R.id.fragment_child_container, NestedFragmentA.newInstance(text)
+                )
+                .addToBackStack(null)
+                .setReorderingAllowed(true)
+                .commit()
         }
+
+        binding.buttonBackB.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+
         binding.nestedFragmentBTextView.text = "Это Nested FragmentB \n${this}\n$text"
     }
 

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:background="@android:color/holo_red_dark"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".FragmentA">
 
     <TextView
@@ -12,7 +12,14 @@
         style="@style/InfoText"
         android:text="Это FragmentA" />
 
-    <androidx.fragment.app.FragmentContainerView
+    <Button
+        android:id="@+id/fragmentAButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Открыть новый Фрагмент" />
+
+        <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_child_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
