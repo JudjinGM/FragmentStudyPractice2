@@ -16,15 +16,9 @@
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
-        android:text="Открыть NestedFragmentB"
+        android:text="Перейти NestedFragmentB"
         android:textAllCaps="false"
         android:layout_height="wrap_content"/>
 
-    <Button
-        android:id="@+id/buttonBackA"
-        android:layout_width="wrap_content"
-        android:text="Назад"
-        android:textAllCaps="false"
-        android:layout_height="wrap_content"/>
 
 </LinearLayout>

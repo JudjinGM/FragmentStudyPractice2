@@ -15,14 +15,7 @@
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
-        android:text="Открыть NestedFragmentA"
-        android:textAllCaps="false"
-        android:layout_height="wrap_content"/>
-
-    <Button
-        android:id="@+id/buttonBackB"
-        android:layout_width="wrap_content"
-        android:text="Назад"
+        android:text="Перейти NestedFragmentA"
         android:textAllCaps="false"
         android:layout_height="wrap_content"/>
 

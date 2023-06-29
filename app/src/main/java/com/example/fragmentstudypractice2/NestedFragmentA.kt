@@ -19,14 +19,13 @@ class NestedFragmentA : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        text = (requireActivity() as TextProvider).getText()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentANestedBinding.inflate(inflater, container, false)
-        text = (requireActivity() as TextProvider).getText()
         return binding.root
     }
 
@@ -35,23 +34,10 @@ class NestedFragmentA : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.button.setOnClickListener {
-            parentFragmentManager
-                .beginTransaction()
-                .replace(
-                    R.id.fragment_child_container, NestedFragmentB.newInstance(text)
-                )
-                .addToBackStack(null)
-                .setReorderingAllowed(true)
-                .commit()
+            (parentFragment as? SelectPage)?.navigateTo(page = 1)
         }
-
-        binding.buttonBackA.setOnClickListener {
-            parentFragmentManager.popBackStack()
-        }
-
 
         binding.nestedFragmentATextView.text = "Это Nested FragmentA \n${this}\n$text"
-
 
     }
 

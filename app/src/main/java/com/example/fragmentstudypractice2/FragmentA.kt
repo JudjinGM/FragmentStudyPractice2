@@ -7,19 +7,20 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.example.fragmentstudypractice2.NestedFragmentA
+import com.example.fragmentstudypractice2.PagerAdapter
 import com.example.fragmentstudypractice2.R
+import com.example.fragmentstudypractice2.SelectPage
 import com.example.fragmentstudypractice2.databinding.FragmentABinding
 import kotlin.properties.Delegates
 import kotlin.random.Random
 
-class FragmentA : Fragment() {
+class FragmentA : Fragment(), SelectPage {
     private var _binding: FragmentABinding? = null
     private val binding get() = _binding!!
 
     private var backgroundColor by Delegates.notNull<Int>()
     private lateinit var text: String
 
-    private val nestedFragmentTag = "NestedFragmentTag"
     override fun onAttach(activity: Activity) {
         super.onAttach(activity)
         Log.d("judjin", "onAttach $this")
@@ -43,14 +44,9 @@ class FragmentA : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.root.setBackgroundColor(backgroundColor)
+
         binding.fragmentATextView.text = "Fragment A $this $text"
-        if (childFragmentManager.findFragmentByTag(nestedFragmentTag) == null){
-            childFragmentManager.beginTransaction()
-                .add(R.id.fragment_child_container, NestedFragmentA.newInstance(text), nestedFragmentTag)
-                .setReorderingAllowed(true).commit()
-        }
 
         binding.fragmentAButton.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
@@ -58,11 +54,10 @@ class FragmentA : Fragment() {
                 .setReorderingAllowed(true).commit()
         }
 
-        Log.d("judjin", "onViewCreated")
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+        val adapter = PagerAdapter(hostFragment = this)
+        binding.pager.adapter = adapter
+        Log.d("judjin", "onViewCreated")
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -121,5 +116,9 @@ class FragmentA : Fragment() {
         fun newInstance(text: String) = FragmentA().apply {
             arguments = bundleOf("text" to text)
         }
+    }
+
+    override fun navigateTo(page: Int) {
+        binding.pager.currentItem = page
     }
 }
